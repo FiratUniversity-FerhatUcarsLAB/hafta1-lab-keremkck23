@@ -1,0 +1,55 @@
+Öğrenci No:250541097
+Ad-Soyad:Mehmet Kerem Küçük
+
+
+
+
+
+FONKSIYON EnKisaSuredeUniversiteyeGiris()
+  // 1. Durum Tespiti
+  KendiKapasiteniBelirle() // Güçlü ve zayıf yönler, verimli çalışma saatleri
+  HedefPuanVeBolumuBelirle() // Gerçekçi ve motive edici bir hedef koy
+
+  // 2. Planlama ve Organizasyon
+  BaslangicTarihi = BUGUN
+  SinavTarihi = YKS_SINAV_TAKVIMI.Tarih
+  KalanSure = SinavTarihi - BaslangicTarihi
+  
+  EylemPlaniOustur(KalanSure) // Günlük/haftalık detaylı çalışma takvimi oluştur
+  KonuAnaliziYap() // Tüm konuları ve ağırlıklarını listele
+  
+  // 3. Verimli Çalışma Döngüsü
+  TEKRARLA KalanSure > 0 OLDUĞU SÜRECE
+    CalismaSaatleri = VerimliSaatleriniBelirle()
+    
+    // a. Konu Öğrenimi ve Kaynak Zenginliği
+    IF KonularEksik() THEN
+      YeniKonuOgren(KonuListesi.siradakiKonu)
+      FarkliKaynaklardanDestekAl() // Dershane, online kurslar vb.
+    END IF
+    
+    // b. Uygulama ve Pekiştirme
+    SoruCozumuYap(GunlukHedefSoruSayisi) // Çözülen soru sayısını düzenli artır
+    DuzenliTekrarYap() // Unutmayı engellemek için kısa aralıklarla tekrar et
+    
+    // c. Deneme Sınavları ve Analiz
+    HaftalikDenemeYap()
+    DenemeSonucuAnalizEt() // Hata yapılan konuları/soru tiplerini not et
+    EksikKonularaGeriDon(AnalizSonucu)
+    
+    // d. Sağlık Yönetimi (Verimlilik İçin Kritik)
+    KaliteliUykuAl(Min7Saat)
+    DengeliBeslen()
+    StresKontroluYap()
+    
+    KalanSure = KalanSure - 1_GUN
+  SON
+  
+  // 4. Sonuç ve Tercih
+  Eger (YeterliBasariSaglandi) O zaman
+    TercihYap(HedefPuanVeBolum)
+    UniversiteyeBasla()
+  Degilse
+    GelecekPlaniniYenile()
+  SON_EGER
+SON_FONKSIYON
