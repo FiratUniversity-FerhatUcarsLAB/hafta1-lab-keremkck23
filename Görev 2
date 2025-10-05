@@ -1,0 +1,46 @@
+öğrenci no:250541097
+Ad-Soyad:Mehmet Kerem Küçük
+
+
+FONKSİYON AI_KararVer(El, OyunDurumu)
+    // El: AI oyuncusunun elindeki kartlar listesi
+    // OyunDurumu: Masadaki kartlar, skor, koz (varsa) gibi bilgiler
+
+    EnIyiKart = BOS // Oynanacak en iyi kart
+    MevcutEnYuksekSkor = -SONSUZ // Hamlenin potansiyel değeri (kazanç/kayıp)
+
+    EĞER El BOŞSA
+        DÖNÜŞ YAP YOK
+    SON
+
+    // 1. Durum: Rakibin son hamlesini kontrol et (varsa)
+    RakipSonKart = OyunDurumu.SonOynananKart
+    
+    EĞER RakipSonKart VARSA
+        // 2. Strateji: Rakibi yenmek için en küçük kartı bul
+        EnIyiYenenKart = BOS
+        
+        HER_KART_İÇİN Kart ELDE
+            EĞER Kart RakipSonKart'tan DAHA BÜYÜKSE (veya kazanıyorsa)
+                EĞER EnIyiYenenKart BOŞ VEYA Kart < EnIyiYenenKart İSE
+                    EnIyiYenenKart = Kart // Kazanmak için minimum kartı sakla
+                SON
+            SON
+        SON
+
+        EĞER EnIyiYenenKart VARSA
+            // Rakibi yenebiliyorsak, mümkün olan en küçük kartla yen
+            DÖNÜŞ YAP EnIyiYenenKart
+        
+        DEĞİLSE
+            // Rakibi yenemiyorsak, en değersiz kartı at (kaybı minimize et)
+            EnDusukDegerliKart = ELDEKİ_EN_KÜÇÜK_DEĞERLİ_KART(El) 
+            DÖNÜŞ YAP EnDusukDegerliKart
+        SON
+
+    DEĞİLSE // 3. Durum: Masada ilk oynayan AI ise
+        // 4. Strateji: Elindeki en güçlü kartı oyna (turun kontrolünü al)
+        EnGucluKart = ELDEKİ_EN_BÜYÜK_DEĞERLİ_KART(El)
+        DÖNÜŞ YAP EnGucluKart
+    SON
+SON
