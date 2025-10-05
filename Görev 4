@@ -1,0 +1,64 @@
+Öğrenci No:250541097
+Ad Soyad:Mehmet Kerem Küçük
+
+
+FONKSIYON EnKısaRotaBul (Graf, BaslangicDuragi):
+
+  // 1. Başlatma
+  Maliyet = Yeni Sözlük()
+  ÖncekiDurak = Yeni Sözlük()
+  ÖncelikKuyruğu = Yeni ÖncelikKuyruğu()
+
+  HER Durak 'D' IÇIN Graf'ta:
+    Maliyet[D] = Sonsuz
+    ÖncekiDurak[D] = Tanımsız
+
+  Maliyet[BaslangicDuragi] = 0
+  ÖncelikKuyruğu.Ekle(BaslangicDuragi, 0) // (Durak, Maliyet)
+
+  // 2. Ana Döngü
+  WHILE ÖncelikKuyruğu BOŞ DEĞİL:
+    
+    // En düşük maliyetli durak 'u' seçilir
+    u = ÖncelikKuyruğu.CikarEnKucukMaliyetli()
+
+    // Eğer şu anki maliyet Sonsuz ise, kalanlara ulaşılamaz, döngü sonlanır.
+    IF Maliyet[u] = Sonsuz:
+      BREAK
+
+    // 'u' durağından komşu duraklara bakılır
+    HER KomsuDurak 'v' ve KenarMaliyeti 'm' IÇIN Graf[u]'da:
+      
+      // 'u' üzerinden 'v'ye yeni maliyet hesaplanır
+      YeniMaliyet = Maliyet[u] + m
+
+      // 3. Gevşetme (Relaxation)
+      // Yeni maliyet eskisinden daha iyiyse (daha küçükse) güncelle
+      IF YeniMaliyet < Maliyet[v]:
+        Maliyet[v] = YeniMaliyet
+        ÖncekiDurak[v] = u
+        ÖncelikKuyruğu.GuncelleVeyaEkle(v, YeniMaliyet)
+        
+  // 4. Sonucu Döndür
+  DÖNDÜR Maliyet, ÖncekiDurak
+FONKSIYON RotayıYenidenOluştur (HedefDurak, ÖncekiDurak):
+    
+    Rota = Yeni Liste()
+    AktifDurak = HedefDurak
+    
+    // Hedef duraktan başlayarak geriye doğru ilerle
+    WHILE AktifDurak TANIMLI DEĞİL DEĞİL:
+        Rota.EkleBasina(AktifDurak) // Başa eklenir, çünkü sondan başa gidiliyor
+        AktifDurak = ÖncekiDurak[AktifDurak]
+        
+    DÖNDÜR Rota
+Baslangic = "Otogar"
+Hedef = "Üniversite"
+
+(Maliyetler, Öncüller) = EnKısaRotaBul(OtobusGrafigi, Baslangic)
+OptimumRota = RotayıYenidenOluştur(Hedef, Öncüller)
+
+YAZDIR "Başlangıç:", Baslangic
+YAZDIR "Hedef:", Hedef
+YAZDIR "Optimum Rota:", OptimumRota // [Otogar, Merkez, Kampüs, Üniversite] gibi
+YAZDIR "Toplam Maliyet:", Maliyetler[Hedef]
