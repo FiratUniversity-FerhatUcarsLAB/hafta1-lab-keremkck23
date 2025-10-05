@@ -1,0 +1,38 @@
+Öğrenci No:250541097
+Ad Soyad:Mehmet Kerem Küçük
+
+
+FONKSIYON TelefonRehberiniSirala(rehberListesi):
+  n = rehberListesi'nin boyutunu al
+
+  // Listenin her öğesi için döngü
+  TEKRARLA (i, 0'dan n-2'ye kadar):
+
+    // Gerçek sıralama işleminin yapıldığı iç döngü
+    TEKRARLA (j, 0'dan n-2-i'ye kadar):
+
+      // rehberListesi[j]'nin alfabetik olarak
+      // rehberListesi[j+1]'den BÜYÜK olup olmadığını kontrol et
+      // (Büyükse, yer değiştirmeleri gerekir)
+      EĞER rehberListesi[j] > rehberListesi[j+1] İSE:
+
+        // Yer Değiştirme (Swap) İşlemi
+        gecici = rehberListesi[j]
+        rehberListesi[j] = rehberListesi[j+1]
+        rehberListesi[j+1] = gecici
+
+      EĞER SONU
+
+    TEKRARLA SONU
+
+  TEKRARLA SONU
+
+  GERİ DÖN rehberListesi
+
+FONKSIYON SONU
+
+// Kullanım Örneği
+rehber = ["Ayşe", "Mehmet", "Can", "Zeynep", "Berk"]
+siralanmisRehber = TelefonRehberiniSirala(rehber)
+
+// Sonuç: ["Ayşe", "Berk", "Can", "Mehmet", "Zeynep"]
