@@ -1,0 +1,71 @@
+Öğrenci NO:250541097
+Ad Soyad:Mehmet Kerem Küçük
+
+
+BAŞLA
+    // 1. Verilerin Tanımlanması
+    ARKADAŞLAR = ["Ali", "Ayşe", "Can", "Deniz", "Ece"]
+    SEÇENEKLER = ["Seçenek A", "Seçenek B", "Seçenek C"]
+    
+    OY_SAYILARI = Yeni_Harita()
+    
+    // Oylama başlamadan önce tüm seçeneklerin oy sayısını sıfırla
+    HER_BİR Seçenek İÇİN SEÇENEKLER'de:
+        OY_SAYILARI[Seçenek] = 0
+    SON_HER_BİR
+    
+    TOPLAM_KİŞİ_SAYISI = ARKADAŞLAR boyutu
+    GEREKEN_OY = (TOPLAM_KİŞİ_SAYISI BÖLÜ 2) + 1
+    
+    EKRANA_YAZ "Toplam kişi sayısı: " + TOPLAM_KİŞİ_SAYISI
+    EKRANA_YAZ "Karar için gereken oy sayısı (Çoğunluk Kuralı): " + GEREKEN_OY
+    EKRANA_YAZ "Oylama seçenekleri: " + SEÇENEKLER
+    
+    // 2. Oylama Aşaması
+    EKRANA_YAZ "\n--- OYLAMA BAŞLADI ---"
+    
+    HER_BİR Arkadaş İÇİN ARKADAŞLAR'da:
+        // *Gerçek bir uygulamada, burada kullanıcıdan girdi alınır*
+        EKRANA_YAZ Arkadaş + ", lütfen oyunu kullan: "
+        
+        // Simülasyon için rastgele oy kullanıldığını varsayalım
+        Oy = SEÇENEKLER'den Rastgele_Seçenek() 
+        
+        EKRANA_YAZ Arkadaş + " oyu: " + Oy
+        
+        // Oy sayısını güncelle
+        OY_SAYILARI[Oy] = OY_SAYILARI[Oy] + 1
+    SON_HER_BİR
+    
+    EKRANA_YAZ "\n--- OYLAMA SONUÇLARI ---"
+    
+    // 3. Kazananı Belirleme
+    KARAR = "Karar Alınamadı"
+    EN_YÜKSEK_OY = -1
+    
+    HER_BİR Seçenek, Oy_Sayısı İÇİN OY_SAYILARI'da:
+        EKRANA_YAZ Seçenek + " aldı: " + Oy_Sayısı + " oy."
+        
+        // Çoğunluğu kontrol et
+        EĞER Oy_Sayısı >= GEREKEN_OY İSE:
+            KARAR = Seçenek
+            KES (Döngüyü sonlandır, karar alındı)
+        
+        // Eğer çoğunluk sağlanmazsa, en çok oyu alan seçeneği takip et (Salt Çoğunluk)
+        EĞER Oy_Sayısı > EN_YÜKSEK_OY İSE:
+            EN_YÜKSEK_OY = Oy_Sayısı
+            KARAR = Seçenek // Geçici olarak en yüksek oyu alanı tut
+        SON_EĞER
+    SON_HER_BİR
+    
+    // 4. Sonucun Bildirilmesi
+    EKRANA_YAZ "\n--- SONUÇ ---"
+    
+    EĞER EN_YÜKSEK_OY >= GEREKEN_OY İSE:
+        EKRANA_YAZ "KESİN KARAR: " + KARAR + " seçeneği " + EN_YÜKSEK_OY + " oy ile çoğunluğu sağladı!"
+    DEĞİLSE:
+        EKRANA_YAZ "Karar için **çoğunluk sağlanamadı** (Gereken oy: " + GEREKEN_OY + ")."
+        EKRANA_YAZ "En çok oyu (" + EN_YÜKSEK_OY + ") alan seçenek: " + KARAR + "."
+        EKRANA_YAZ "Grup, en çok oyu alan seçenek üzerinde yeniden tartışmalıdır."
+    SON_EĞER
+SON
